@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "gBAOeftsqMcO7cB/9hWHvb0bDLyJSCT/yXgKzgciSSE=",
+  "Source": "ClaimsMS",
+  "BasePath": "_content/ClaimsMS",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

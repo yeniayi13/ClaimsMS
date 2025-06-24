@@ -1,0 +1,25 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+*.db
+/ClaimsMS/.vs/ClaimsMS/CopilotIndices/17.13.444.19527/CodeChunks.db-shm
+/ClaimsMS/.vs/ClaimsMS/CopilotIndices/17.13.444.19527/CodeChunks.db-wal
+/ClaimsMS/.vs/ClaimsMS/CopilotIndices/17.13.444.19527/SemanticSymbols.db-shm
+/ClaimsMS/.vs/ClaimsMS/CopilotIndices/17.13.444.19527/SemanticSymbols.db-wal
+/ClaimsMS/.vs/ClaimsMS/DesignTimeBuild/.dtbcache.v2
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/41d9bcc8-1ff3-4c10-b55b-ef8b69681e7c.vsidx
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/615dc67d-2e7f-4942-a395-210c38e27e73.vsidx
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/a8caf390-1686-4596-a3b9-b0c8a0b9fdc7.vsidx
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/c4662ca6-f1c1-486d-907e-935874aa2e67.vsidx
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/cb516ed0-95e9-493d-8a6a-f292ae080219.vsidx
+/ClaimsMS/.vs/ClaimsMS/v17/.futdcache.v2
+/ClaimsMS/.vs/ClaimsMS/v17/.suo
+/ClaimsMS/.vs/ClaimsMS/v17/DocumentLayout.backup.json
+/ClaimsMS/.vs/ClaimsMS/v17/DocumentLayout.json
+/ClaimsMS/.vs/ProjectEvaluation/claimsms.metadata.v9.bin
+/ClaimsMS/.vs/ProjectEvaluation/claimsms.projects.v9.bin
+/ClaimsMS/.vs/ProjectEvaluation/claimsms.strings.v9.bin
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/01420a97-959e-45c9-95b1-02590f69b664.vsidx
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/695af1af-243d-441f-822e-7a629d3c267d.vsidx
+/ClaimsMS/.vs/ClaimsMS/FileContentIndex/ebf80df7-676c-4169-b9b8-f8595f6173b3.vsidx

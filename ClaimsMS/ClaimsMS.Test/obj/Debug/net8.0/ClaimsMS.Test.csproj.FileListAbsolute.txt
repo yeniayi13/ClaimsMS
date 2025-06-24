@@ -1,0 +1,12 @@
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\bin\Debug\net8.0\ClaimsMS.Test.deps.json
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\bin\Debug\net8.0\ClaimsMS.Test.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\bin\Debug\net8.0\ClaimsMS.Test.pdb
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.AssemblyInfoInputs.cache
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.AssemblyInfo.cs
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.sourcelink.json
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\refint\ClaimsMS.Test.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ClaimsMS.Test.pdb
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Test\obj\Debug\net8.0\ref\ClaimsMS.Test.dll
