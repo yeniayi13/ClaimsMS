@@ -1,4 +1,5 @@
 using ClaimsMS;
+using ClaimsMS.Application;
 using ClaimsMS.Common.AutoMapper;
 using ClaimsMS.Common.Dtos.Claim.Response;
 using ClaimsMS.Common.Dtos.Resolution.Response;
@@ -28,8 +29,8 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPresentation(builder.Configuration)
-        .AddInfrastructure(builder.Configuration);
-        //.AddApplication();
+        .AddInfrastructure(builder.Configuration)
+        .AddApplication();
 
 // Registrar el serializador de GUID
 BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer(GuidRepresentation.Standard));

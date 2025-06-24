@@ -87,3 +87,4 @@ C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS\obj\Debug\net8.0\refint\ClaimsMS.dll
 C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS\obj\Debug\net8.0\ClaimsMS.pdb
 C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS\obj\Debug\net8.0\ClaimsMS.genruntimeconfig.cache
 C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS\obj\Debug\net8.0\ref\ClaimsMS.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS\obj\Debug\net8.0\ClaimsMS.MvcApplicationPartsAssemblyInfo.cs

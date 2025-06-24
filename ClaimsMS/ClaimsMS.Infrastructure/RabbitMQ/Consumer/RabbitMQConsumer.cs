@@ -67,15 +67,16 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
 
 
                         await _collectionC.UpdateOneAsync(filter, update);
-                        Console.WriteLine($"Reclamo actualizado en MongoDB: {JsonConvert.SerializeObject(eventMessageD.Data)}");
+                        Console.WriteLine($"Reclamo actualizado en MongoDB: {JsonConvert.SerializeObject(eventMessageC.Data)}");
                     }
-                    else if (eventMessageD?.EventType == "CLAIM_DELETED")
+                    else if (eventMessageC?.EventType == "CLAIM_CREATED")
                     {
                         await _collectionC.InsertOneAsync(eventMessageC.Data);
                         Console.WriteLine($"Reclamo insertado en MongoDB: {JsonConvert.SerializeObject(eventMessageC.Data)}");
 
-                        await Task.Run(() => channel.BasicAckAsync(ea.DeliveryTag, false));
+                       
                     }
+                    await Task.Run(() => channel.BasicAckAsync(ea.DeliveryTag, false));
                 }
                 catch (Exception ex)
                 {

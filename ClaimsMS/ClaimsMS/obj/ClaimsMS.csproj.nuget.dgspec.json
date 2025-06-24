@@ -32,7 +32,17 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\LENOVO\\ClaimsMS\\ClaimsMS\\ClaimsMS.Common\\ClaimsMS.Common.csproj": {
+                "projectPath": "C:\\Users\\LENOVO\\ClaimsMS\\ClaimsMS\\ClaimsMS.Common\\ClaimsMS.Common.csproj"
+              },
+              "C:\\Users\\LENOVO\\ClaimsMS\\ClaimsMS\\ClaimsMS.Core\\ClaimsMS.Core.csproj": {
+                "projectPath": "C:\\Users\\LENOVO\\ClaimsMS\\ClaimsMS\\ClaimsMS.Core\\ClaimsMS.Core.csproj"
+              },
+              "C:\\Users\\LENOVO\\ClaimsMS\\ClaimsMS\\ClaimsMS.Infrastructure\\ClaimsMS.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\LENOVO\\ClaimsMS\\ClaimsMS\\ClaimsMS.Infrastructure\\ClaimsMS.Infrastructure.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -61,7 +71,7 @@
             },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[9.0.6, )"
             }
           },
           "imports": [
@@ -398,6 +408,10 @@
               "target": "Package",
               "version": "[9.0.6, )"
             },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[9.0.6, )"
@@ -508,6 +522,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.15, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[9.0.6, )"
             },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",

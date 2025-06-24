@@ -31,13 +31,12 @@ namespace ProductsMS.Infrastructure.Database.Configuration.Postgres
                         builder.Property(s => s.ClaimId)
                                             .HasConversion(claimId => claimId.Value, value => ClaimId.Create(value)!)
                                             .IsRequired();
-                        builder.HasOne(s => s.Claim)
-                                .WithMany()
-                                .HasForeignKey(s => s.ClaimId)
-                                .OnDelete(DeleteBehavior.Cascade);
-                        builder.HasIndex(s => s.ResolutionId).IsUnique();
-                        builder.HasIndex(s => s.ClaimId);
+                        builder
+                          .HasOne(r => r.Claim)
+                          .WithOne(c => c.Resolution)
+                          .HasForeignKey<ResolutionEntity>(r => r.ClaimId)
+                          .OnDelete(DeleteBehavior.Cascade);
 
-                }
+        }
     }
 }

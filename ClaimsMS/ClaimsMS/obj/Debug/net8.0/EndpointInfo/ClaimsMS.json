@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ClaimsMS",
+    "version": "1.0"
+  },
+  "paths": {
+    "/claim/Add-Claim/{auctionId}/{userId}": {
+      "post": {
+        "tags": [
+          "Claim"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "auctionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimsMS.Common.Dtos.Claim.Request.CreateClaimDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimsMS.Common.Dtos.Claim.Request.CreateClaimDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimsMS.Common.Dtos.Claim.Request.CreateClaimDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/claim/Update-Status/{claimId}": {
+      "put": {
+        "tags": [
+          "Claim"
+        ],
+        "parameters": [
+          {
+            "name": "claimId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "ClaimsMS"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/claim/resolution/Add-Resolution/{claimId}": {
+      "post": {
+        "tags": [
+          "Resolution"
+        ],
+        "parameters": [
+          {
+            "name": "claimId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimsMS.Common.Dtos.Resolution.Request.CreateResolutionDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimsMS.Common.Dtos.Resolution.Request.CreateResolutionDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimsMS.Common.Dtos.Resolution.Request.CreateResolutionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ClaimsMS.Common.Dtos.Claim.Request.CreateClaimDto": {
+        "type": "object",
+        "properties": {
+          "claimId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "claimAuctionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "claimDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "claimReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusClaim": {
+            "type": "string",
+            "nullable": true
+          },
+          "claimEvidence": {
+            "type": "string",
+            "nullable": true
+          },
+          "claimUserId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClaimsMS.Common.Dtos.Resolution.Request.CreateResolutionDto": {
+        "type": "object",
+        "properties": {
+          "resolutionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "claimId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resolutionDescription": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Keycloak": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://localhost:18080/realms/auth-demo/protocol/openid-connect/auth",
+            "scopes": {
+              "openid": "openid",
+              "profile": "profile"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "Keycloak": [ ]
+    }
+  ]
+}
