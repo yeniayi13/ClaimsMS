@@ -24,11 +24,17 @@ namespace ClaimsMS.Infrastructure.Repositories.Resolution
             _collection = collection ?? throw new ArgumentNullException(nameof(collection));// Inyectar el Mapper
         }
 
-        public async Task<List<ResolutionEntity?>> GetAllByFiltredResolutionAsync(Guid? claimId, Guid? auctionId = null)
+        public async Task<List<ResolutionEntity?>> GetAllByFiltredResolutionAsync(Guid? claimId, Guid? auctionId = null, Guid? id = null)
         {
             Console.WriteLine("Ejecutando GetAllByFiltredResolutionAsync...");
 
             var filters = new List<FilterDefinition<ResolutionEntity>>();
+
+            if (id.HasValue && id != Guid.Empty)
+            {
+                Console.WriteLine($"Filtrando por reclamación: {id}");
+                filters.Add(Builders<ResolutionEntity>.Filter.Eq("ResolutionId", id));
+            }
 
             if (claimId.HasValue && claimId != Guid.Empty)
             {

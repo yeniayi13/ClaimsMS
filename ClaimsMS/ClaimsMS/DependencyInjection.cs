@@ -10,6 +10,8 @@ using ClaimsMS.Infrastructure.Repositories.Resolution;
 using ClaimsMS.Infrastructure.Repositories.Claims;
 using ClaimsMS.Core.Repositories.Claims;
 using PaymentMS.Infrastructure.Services.User;
+using ClaimsMS.Application.Resolution.Handler.Command;
+using ClaimsMS.Application.Claim.Handler.Command;
 
 
 namespace ClaimsMS
@@ -33,10 +35,11 @@ namespace ClaimsMS
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
             //Registro de handlers 
-           /* services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateProductCommandHandler).Assembly));
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateProductCommandHandler).Assembly));
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(UpdateProductCommandHandler).Assembly));
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetNameProductQueryHandler).Assembly));
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateResolutionCommandHandler).Assembly));
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateClaimCommandHandler).Assembly));
+            //services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(UpdateProductCommandHandler).Assembly));
+            
+            /*services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetNameProductQueryHandler).Assembly));
             services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetAvailableProductsQueryHandler).Assembly));
             services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetProductQueryHandler).Assembly));
             services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetAllProductQueryHandler).Assembly));

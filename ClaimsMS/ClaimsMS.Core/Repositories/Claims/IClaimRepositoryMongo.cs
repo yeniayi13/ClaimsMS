@@ -10,6 +10,6 @@ namespace ClaimsMS.Core.Repositories.Claims
     public interface IClaimRepositoryMongo
     {
         Task<ClaimEntity?> GetByIdAsync(Guid id);
-        Task<List<ClaimEntity?>> GetByStatusClaimsAsync(Guid? userId = null, Guid? auctionId = null, decimal? status = null);
+        Task<List<ClaimEntity?>> GetByStatusClaimsAsync(Guid? userId = null, Guid? auctionId = null, string? status = null);
     }
 }

@@ -53,9 +53,6 @@ namespace ClaimsMS.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("ResolutionId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("StatusClaim")
                         .IsRequired()
                         .HasColumnType("text");
@@ -67,8 +64,6 @@ namespace ClaimsMS.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("ClaimId");
-
-                    b.HasIndex("ResolutionId");
 
                     b.ToTable("Claims", (string)null);
                 });
@@ -102,34 +97,27 @@ namespace ClaimsMS.Infrastructure.Migrations
 
                     b.HasKey("ResolutionId");
 
-                    b.HasIndex("ClaimId");
-
-                    b.HasIndex("ResolutionId")
+                    b.HasIndex("ClaimId")
                         .IsUnique();
 
                     b.ToTable("Resolutions", (string)null);
                 });
 
-            modelBuilder.Entity("ClaimsMS.Domain.Entities.Claims.ClaimEntity", b =>
-                {
-                    b.HasOne("ClaimsMS.Domain.Entities.Resolutions.ResolutionEntity", "Resolution")
-                        .WithMany()
-                        .HasForeignKey("ResolutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Resolution");
-                });
-
             modelBuilder.Entity("ClaimsMS.Domain.Entities.Resolutions.ResolutionEntity", b =>
                 {
                     b.HasOne("ClaimsMS.Domain.Entities.Claims.ClaimEntity", "Claim")
-                        .WithMany()
-                        .HasForeignKey("ClaimId")
+                        .WithOne("Resolution")
+                        .HasForeignKey("ClaimsMS.Domain.Entities.Resolutions.ResolutionEntity", "ClaimId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Claim");
+                });
+
+            modelBuilder.Entity("ClaimsMS.Domain.Entities.Claims.ClaimEntity", b =>
+                {
+                    b.Navigation("Resolution")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

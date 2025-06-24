@@ -10,6 +10,6 @@ namespace ClaimsMS.Core.Repositories.Resolutions
 {
     public interface IResolutionRepositoryMongo
     {
-        Task<List<ResolutionEntity?>> GetAllByFiltredResolutionAsync(Guid? claimId, Guid? auctionId = null);
+        Task<List<ResolutionEntity?>> GetAllByFiltredResolutionAsync(Guid? claimId, Guid? auctionId = null, Guid? id = null);
     }
 }

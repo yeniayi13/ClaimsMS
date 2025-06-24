@@ -15,13 +15,14 @@ namespace ClaimsMS.Common.AutoMapper
         public ClaimProfile()
         {
             CreateMap<ClaimEntity, GetClaimDto>()
-                .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId))
-                .ForMember(dest => dest.ClaimAuctionId, opt => opt.MapFrom(src => src.ClaimAuctionId))
+                .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId.Value))
+                .ForMember(dest => dest.ClaimAuctionId, opt => opt.MapFrom(src => src.ClaimAuctionId.Value))
                 .ForMember(dest => dest.ClaimDescription, opt => opt.MapFrom(src => src.ClaimDescription.Value))
                 .ForMember(dest => dest.ClaimReason, opt => opt.MapFrom(src => src.ClaimReason.Value))
-                .ForMember(dest => dest.StatusClaim, opt => opt.MapFrom(src => src.StatusClaim))
+                .ForMember(dest => dest.StatusClaim, opt => opt.MapFrom(src => src.StatusClaim.ToString()))
                 .ForMember(dest => dest.ClaimEvidence, opt => opt.MapFrom(src => src.ClaimEvidence.Base64Data))
-                .ForMember(dest => dest.ClaimUserId, opt => opt.MapFrom(src => src.ClaimUserId.Value));
+                .ForMember(dest => dest.ClaimUserId, opt => opt.MapFrom(src => src.ClaimUserId.Value))
+                .ReverseMap();
 
         }
     }

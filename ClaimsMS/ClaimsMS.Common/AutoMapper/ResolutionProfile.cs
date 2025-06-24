@@ -17,8 +17,9 @@ namespace ClaimsMS.Common.AutoMapper
             CreateMap<ResolutionEntity,GetResolutionDto>()
                 .ForMember(dest => dest.ResolutionId, opt => opt.MapFrom(src => src.ResolutionId.Value))
                 .ForMember(dest => dest.ClaimId, opt => opt.MapFrom(src => src.ClaimId.Value))
-                .ForMember(dest => dest.ResolutionDescription, opt => opt.MapFrom(src => src.ResolutionDescription.Value));
-           
+                .ForMember(dest => dest.ResolutionDescription, opt => opt.MapFrom(src => src.ResolutionDescription.Value))
+                .ReverseMap();
+
         }
     }
 }

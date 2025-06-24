@@ -50,7 +50,7 @@ namespace ClaimsMS.Infrastructure.Repositories.Claims
             return productEntity;
         }
 
-        public async Task<List<ClaimEntity?>> GetByStatusClaimsAsync(Guid? userId, Guid? auctionId = null, decimal? status = null)
+        public async Task<List<ClaimEntity?>> GetByStatusClaimsAsync(Guid? userId, Guid? auctionId = null, string? status = null)
         {
             Console.WriteLine("Ejecutando GetByStatusClaimsAsync...");
 
@@ -68,7 +68,7 @@ namespace ClaimsMS.Infrastructure.Repositories.Claims
                 filters.Add(Builders<ClaimEntity>.Filter.Eq("AuctionId", auctionId));
             }
 
-            if (status.HasValue)
+            if (!string.IsNullOrWhiteSpace(status))
             {
                 Console.WriteLine($"Filtrando por estado: {status}");
                 filters.Add(Builders<ClaimEntity>.Filter.Eq("Status", status));
