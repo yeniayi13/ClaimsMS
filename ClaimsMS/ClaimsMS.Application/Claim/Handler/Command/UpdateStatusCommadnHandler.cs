@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using ClaimsMS.Application.Claim.Command;
 using ClaimsMS.Common.Dtos.Claim.Response;
+using ClaimsMS.Common.Dtos.Product.Response;
 using ClaimsMS.Common.Dtos.Resolution.Response;
 using ClaimsMS.Core.RabbitMQ;
 using ClaimsMS.Core.Repositories.Claims;
+using ClaimsMS.Core.Service.History;
 using ClaimsMS.Domain.Entities.Claim.Enum;
 using ClaimsMS.Infrastructure.Exceptions;
 using MediatR;
@@ -21,6 +23,7 @@ namespace ClaimsMS.Application.Claim.Handler.Command
         private readonly IClaimRepository _claimRepository;
         private readonly IEventBus<GetClaimDto> _eventBus;
         private readonly IMapper _mapper;
+       
 
         public UpdateStatusCommadnHandler(
             IClaimRepositoryMongo claimRepositoryMongo,
@@ -31,6 +34,7 @@ namespace ClaimsMS.Application.Claim.Handler.Command
             _eventBus = eventBus;
             _claimRepository = claimRepository;
             _mapper = mapper;
+           
         }
 
         public async Task<Guid> Handle(UpdateStatusClaimCommand request, CancellationToken cancellationToken)
@@ -45,6 +49,8 @@ namespace ClaimsMS.Application.Claim.Handler.Command
                 claim.StatusClaim = StatusClaim.Pendiente;
                 await _claimRepository.UpdateAsync(claim);
                 await _eventBus.PublishMessageAsync(_mapper.Map<GetClaimDto>(claim), "claimQueue", "CLAIM_UPDATED");
+
+                
                 return claim.ClaimId.Value;
             }
             catch (Exception ex)
