@@ -26,6 +26,8 @@ using PaymentMS.Common.Dtos.Response;
 using ClaimsMS.Core.Service.Notification;
 using ClaimsMS.Application.Validator;
 using FluentValidation;
+using ClaimsMS.Core.Service.History;
+using ClaimsMS.Common.Dtos.Product.Response;
 
 namespace ClaimsMS.Application.Resolution.Handler.Command
 {
@@ -40,14 +42,14 @@ namespace ClaimsMS.Application.Resolution.Handler.Command
         private readonly IMapper _mapper;
          private readonly IAuctionService _auctionService;
         private readonly INotificationService _notificationService;
-
+        private readonly IHistoryService _historyService;
         public CreateResolutionCommandHandler(
             IClaimRepositoryMongo claimRepositoryMongo,
             IEventBus<GetResolutionDto> eventBus,
             IResolutionRepository resolutionRepository,
             IMapper mapper, INotificationService notificationService, IClaimRepository claimRepository
             , IEventBus<GetClaimDto> eventBusClaim, IUserService userService, IAuctionService auctionService
-            )
+           ,IHistoryService historyService )
         {
             _claimRepositoryMongo = claimRepositoryMongo;
             _eventBus = eventBus;
@@ -58,6 +60,7 @@ namespace ClaimsMS.Application.Resolution.Handler.Command
             _eventBusClaim = eventBusClaim;
             _userService = userService;
             _auctionService = auctionService;
+            _historyService = historyService;
 
         }
         public async Task<Guid> Handle(CreateResolutionCommand request, CancellationToken cancellationToken)
@@ -76,7 +79,15 @@ namespace ClaimsMS.Application.Resolution.Handler.Command
                 await NotifyUserAsync(user.UserId, resolutionDto.ResolutionDescription);
 
                 await UpdateClaimStatusAsync(claim);
-
+                // Registrar la actividad en el historial
+                var history = new GetHistoryDto
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = user.UserId,
+                    Action = $"Solucionaste el reclamo {request.Resolution.ClaimId} ",
+                    Timestamp = DateTime.UtcNow
+                };
+                await _historyService.AddActivityHistoryAsync(history);
                 return resolution.ResolutionId.Value;
             }
             catch (Exception ex)

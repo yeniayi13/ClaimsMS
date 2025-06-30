@@ -2,9 +2,11 @@
 using ClaimsMS.Application.Claim.Command;
 using ClaimsMS.Application.Validator;
 using ClaimsMS.Common.Dtos.Claim.Response;
+using ClaimsMS.Common.Dtos.Product.Response;
 using ClaimsMS.Core.RabbitMQ;
 using ClaimsMS.Core.Repositories.Claims;
 using ClaimsMS.Core.Service.Auction;
+using ClaimsMS.Core.Service.History;
 using ClaimsMS.Core.Service.Notification;
 using ClaimsMS.Core.Service.User;
 using ClaimsMS.Domain.Entities.Claim.Enum;
@@ -29,7 +31,8 @@ namespace ClaimsMS.Application.Claim.Handler.Command
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IAuctionService _auctionService;
-       
+        private readonly IHistoryService _historyService;
+
 
 
         public CreateClaimCommandHandler(
@@ -37,14 +40,15 @@ namespace ClaimsMS.Application.Claim.Handler.Command
             IEventBus<GetClaimDto> eventBus,
             IUserService userService,
             IMapper mapper,
-            IAuctionService auctionService)
+            IAuctionService auctionService,IHistoryService historyService )
         {
             _claimRepository = claimRepository;
             _eventBus = eventBus;
             _userService = userService;
             _mapper = mapper;
             _auctionService = auctionService;
-          
+            _historyService = historyService;
+
         }
         public async Task<Guid> Handle(CreateClaimCommand request, CancellationToken cancellationToken)
         {
@@ -85,6 +89,16 @@ namespace ClaimsMS.Application.Claim.Handler.Command
                 // Guardar el producto en el repositorio
                 await _claimRepository.AddAsync(claim);
                 await _eventBus.PublishMessageAsync(claimDto, "claimQueue", "CLAIM_CREATED");
+                // Registrar la actividad en el historial
+                var history = new GetHistoryDto
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = request.UserId,
+                    Action = $"Iniciaste un nuevo reclamo",
+                    Timestamp = DateTime.UtcNow
+                };
+                await _historyService.AddActivityHistoryAsync(history);
+
                 // Retornar el ID del producto registrado
                 return claim.ClaimId.Value;
             }
