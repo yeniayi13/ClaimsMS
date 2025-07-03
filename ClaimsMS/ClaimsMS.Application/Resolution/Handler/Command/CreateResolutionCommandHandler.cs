@@ -109,7 +109,7 @@ namespace ClaimsMS.Application.Resolution.Handler.Command
         {
             var claim = await _claimRepositoryMongo.GetByIdAsync(claimId);
             if (claim == null)
-                throw new ClaimNotFoundException($"No claim found with ID {claimId}");
+                throw new ClaimNotFoundException($"No existe el reclamo con Id {claimId}");
 
             return claim;
         }
@@ -135,10 +135,10 @@ namespace ClaimsMS.Application.Resolution.Handler.Command
             {
                 NotificationId = Guid.NewGuid(),
                 NotificationUserId = userId,
-                NotificationSubject = "Your Claim Has Been Resolved",
-                NotificationMessage = $"Your claim has been reviewed. A resolution has been issued: \"{description}\". Please check your account for more details.",
+                NotificationSubject = "Resolucion de tu Reclamo",
+                NotificationMessage = $"Su reclamo ha sido revisad. Se ha emitido una resolución: \"{description}\". Por favor, revise su cuenta para obtener más detalles.",
                 NotificationDateTime = DateTime.UtcNow,
-                NotificationStatus = "Sent"
+                NotificationStatus = "Enviado"
             };
 
             await _notificationService.SendNotificationAsync(notification);
