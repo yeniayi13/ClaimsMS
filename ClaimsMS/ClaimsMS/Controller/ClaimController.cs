@@ -77,7 +77,7 @@ namespace ClaimsMS.Controller
                 return StatusCode(500, "Ocurrió un error inesperado al intentar crear el producto.");
             }
         }
-
+        [Authorize(Policy = "AdministradorOSoportePolicy")]
         [HttpPut("Update-Status/{claimId}")]
         public async Task<IActionResult> UpdateStatusClaim([FromRoute] Guid claimId)
         {

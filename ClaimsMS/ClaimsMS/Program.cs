@@ -6,6 +6,7 @@ using ClaimsMS.Common.Dtos.Resolution.Response;
 using ClaimsMS.Core.Database;
 using ClaimsMS.Core.RabbitMQ;
 using ClaimsMS.Core.Service.Auction;
+using ClaimsMS.Core.Service.History;
 using ClaimsMS.Core.Service.Notification;
 using ClaimsMS.Core.Service.User;
 using ClaimsMS.Domain.Entities.Claims;
@@ -16,6 +17,7 @@ using ClaimsMS.Infrastructure.RabbitMQ.Connection;
 using ClaimsMS.Infrastructure.RabbitMQ.Consumer;
 using ClaimsMS.Infrastructure.Service.Notification;
 using ClaimsMS.Infrastructure.Services.Auction;
+using ClaimsMS.Infrastructure.Services.History;
 using ClaimsMS.Infrastructure.Settings;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -155,6 +157,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient<IUserService, UserService>();
 builder.Services.AddHttpClient<IAuctionService, AuctionService>();
 builder.Services.AddHttpClient<INotificationService, NotificationService>();
+builder.Services.AddHttpClient<IHistoryService, HistoryService>();
+
 
 
 

@@ -136,7 +136,7 @@ namespace ClaimsMS.Application.Resolution.Handler.Command
                 NotificationId = Guid.NewGuid(),
                 NotificationUserId = userId,
                 NotificationSubject = "Resolucion de tu Reclamo",
-                NotificationMessage = $"Su reclamo ha sido revisad. Se ha emitido una resolución: \"{description}\". Por favor, revise su cuenta para obtener más detalles.",
+                NotificationMessage = $"Su reclamo ha sido revisado. Se ha emitido una resolución: \"{description}\". Por favor, revise su cuenta para obtener más detalles.",
                 NotificationDateTime = DateTime.UtcNow,
                 NotificationStatus = "Enviado"
             };
