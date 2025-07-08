@@ -22,9 +22,9 @@ namespace ClaimsMS.Application.Validator
                 .NotEmpty().WithMessage("Debe especificar una razón para la reclamación.")
                 .MaximumLength(300).WithMessage("La razón no puede superar los 300 caracteres.");
 
-            RuleFor(x => x.StatusClaim)
+          /*  RuleFor(x => x.StatusClaim)
                 .NotEmpty().WithMessage("Debe asignar un estado a la reclamación.")
-                .Must(BeAValidStatus).WithMessage("El estado proporcionado no es válido.");
+                .Must(BeAValidStatus).WithMessage("El estado proporcionado no es válido.");*/
 
            
         }

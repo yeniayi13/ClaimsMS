@@ -33,11 +33,11 @@ namespace ClaimsMS.Infrastructure.Services.Auction
 
         //Cambiar esto para buscar es la subasta 
 
-        public async Task<bool> AuctionExists(Guid productId, Guid userId)
+        public async Task<bool> AuctionExists(Guid auctionId)
         {
             try
             {
-                var response = await _httpClient.GetAsync($"auction/producto-activo/{productId}?userId={userId}");
+                var response = await _httpClient.GetAsync($"auction/id/{auctionId}");
 
                 if (!response.IsSuccessStatusCode)
                 {

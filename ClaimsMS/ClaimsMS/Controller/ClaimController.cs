@@ -19,7 +19,9 @@ namespace ClaimsMS.Controller
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(logger));
         }
-        //[Authorize(Policy = "SubastadorPolicy")]
+
+        // Crea un reclamo para un producto en una subasta
+        [Authorize(Policy = "PostorPolicyPolicy")]
         [HttpPost("Add-Claim/{auctionId}/{userId}")]
         public async Task<IActionResult> CreatedProduct([FromBody] CreateClaimDto createClaimDto, [FromRoute] Guid userId, [FromRoute] Guid auctionId)
         {
@@ -77,6 +79,8 @@ namespace ClaimsMS.Controller
                 return StatusCode(500, "Ocurrió un error inesperado al intentar crear el producto.");
             }
         }
+
+        //Actualiza el estado a revisado
         [Authorize(Policy = "AdministradorOSoportePolicy")]
         [HttpPut("Update-Status/{claimId}")]
         public async Task<IActionResult> UpdateStatusClaim([FromRoute] Guid claimId)

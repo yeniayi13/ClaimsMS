@@ -78,7 +78,7 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
                     }
                     await Task.Run(() => channel.BasicAckAsync(ea.DeliveryTag, false));
                 }
-                catch (Exception ex)
+                catch (System.Exception ex)
                 {
                     Console.WriteLine($"Error procesando el mensaje: {ex.Message}");
                 }

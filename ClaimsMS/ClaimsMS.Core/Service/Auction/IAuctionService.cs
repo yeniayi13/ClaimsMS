@@ -8,6 +8,6 @@ namespace ClaimsMS.Core.Service.Auction
 {
     public interface IAuctionService
     {
-        Task<bool> AuctionExists(Guid auctionId, Guid userId);
+        Task<bool> AuctionExists(Guid auctionId);
     }
 }

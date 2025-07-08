@@ -46,7 +46,7 @@ namespace ClaimsMS.Application.Claim.Handler.Command
                 {
                     throw new ClaimNotFoundException($"El reclamo con {request.ClaimId} no existe.");
                 }
-                claim.StatusClaim = StatusClaim.Pendiente;
+                claim.StatusClaim = StatusClaim.Revision;
                 await _claimRepository.UpdateAsync(claim);
                 await _eventBus.PublishMessageAsync(_mapper.Map<GetClaimDto>(claim), "claimQueue", "CLAIM_UPDATED");
 
@@ -56,7 +56,7 @@ namespace ClaimsMS.Application.Claim.Handler.Command
             catch (Exception ex)
             {
                 // Manejo de excepciones
-                throw new InvalidOperationException("Error updating claim status.", ex);
+                throw new InvalidOperationException("Error al actualizar el estado del reclamo.", ex);
             }
         }
 

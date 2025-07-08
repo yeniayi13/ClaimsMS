@@ -4,6 +4,7 @@ using ClaimsMS.Common.Dtos.Claim.Request;
 using ClaimsMS.Common.Dtos.Resolution.Request;
 using ClaimsMS.Infrastructure.Exceptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClaimsMS.Controller
@@ -20,7 +21,9 @@ namespace ClaimsMS.Controller
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(logger));
         }
-        //[Authorize(Policy = "SubastadorPolicy")]
+
+        // Crea una resolución para un reclamo
+        [Authorize(Policy = "AdministradorOSoportePolicy")]
         [HttpPost("Add-Resolution/{claimId}")]
         public async Task<IActionResult> CreatedProduct([FromBody] CreateResolutionDto createResolutionDto, [FromRoute] Guid claimId)
         {
@@ -28,18 +31,18 @@ namespace ClaimsMS.Controller
             {
                 if (createResolutionDto == null)
                 {
-                    throw new ArgumentNullException(nameof(createResolutionDto), "El objeto de creación de producto no puede ser nulo.");
+                    throw new ArgumentNullException(nameof(createResolutionDto), "El objeto de creación de resolucion no puede ser nulo.");
                 }
 
                 var command = new CreateResolutionCommand(createResolutionDto, claimId);
-                var categoryId = await _mediator.Send(command);
+                var resolutionId = await _mediator.Send(command);
 
-                if (categoryId == Guid.Empty)
+                if (resolutionId == Guid.Empty)
                 {
                     throw new InvalidOperationException("El reclamo no se pudo crear correctamente.");
                 }
 
-                return Ok(categoryId);
+                return Ok(resolutionId);
             }
             catch (ArgumentNullException e)
             {

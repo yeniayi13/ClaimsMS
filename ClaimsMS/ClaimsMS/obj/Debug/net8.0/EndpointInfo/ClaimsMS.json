@@ -146,10 +146,6 @@
       "ClaimsMS.Common.Dtos.Claim.Request.CreateClaimDto": {
         "type": "object",
         "properties": {
-          "claimId": {
-            "type": "string",
-            "format": "uuid"
-          },
           "claimAuctionId": {
             "type": "string",
             "format": "uuid"
@@ -159,10 +155,6 @@
             "nullable": true
           },
           "claimReason": {
-            "type": "string",
-            "nullable": true
-          },
-          "statusClaim": {
             "type": "string",
             "nullable": true
           },
@@ -180,10 +172,6 @@
       "ClaimsMS.Common.Dtos.Resolution.Request.CreateResolutionDto": {
         "type": "object",
         "properties": {
-          "resolutionId": {
-            "type": "string",
-            "format": "uuid"
-          },
           "claimId": {
             "type": "string",
             "format": "uuid"

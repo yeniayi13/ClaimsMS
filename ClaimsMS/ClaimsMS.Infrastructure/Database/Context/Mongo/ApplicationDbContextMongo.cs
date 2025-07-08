@@ -29,7 +29,7 @@ namespace ClaimsMS.Infrastructure.Database.Context.Mongo
                 _database = _client.GetDatabase(databaseName);
                 ConfigureCollections();
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Console.WriteLine($"Error initializing database context: {e.Message}");
             }
@@ -95,7 +95,7 @@ namespace ClaimsMS.Infrastructure.Database.Context.Mongo
                     }
                 }
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Console.WriteLine($"Error configuring collections: {e.Message}");
             }
