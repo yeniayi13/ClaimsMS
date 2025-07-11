@@ -16,7 +16,9 @@ namespace ClaimsMS.Core.Database
         DbContext DbContext { get; }
         DbSet<ClaimEntity> Claims { get; set; }
         DbSet<ResolutionEntity> Resolutions { get; set; }
-       
+
+        DbSet<ClaimDelivery> ClaimDeliveries { get; set; }
+
 
         IDbContextTransactionProxy BeginTransaction();
 

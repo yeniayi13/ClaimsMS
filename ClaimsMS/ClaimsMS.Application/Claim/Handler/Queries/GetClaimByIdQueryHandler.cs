@@ -29,13 +29,26 @@ namespace ClaimsMS.Application.Claim.Handler.Queries
 
             public async Task<GetClaimDto> Handle(GetClaimByIdQuery request, CancellationToken cancellationToken)
             {
-                if (request.ClaimId == Guid.Empty) throw new ClaimNotFoundException("Claim id is required");
-                var claimId = ClaimId.Create(request.ClaimId);
-                var claim = await _claimRepository.GetByIdAsync((Guid)request.ClaimId);
-                var claimDto = _mapper.Map<GetClaimDto>(claim);
-                return claimDto;
+                try
+                {
+                    if (request.ClaimId == Guid.Empty) throw new ClaimNotFoundException("Claim id is required");
+                   // var claimId = ClaimId.Create(request.ClaimId);
+                    var claim = await _claimRepository.GetByIdAsync((Guid)request.ClaimId);
+                    var claimDto = _mapper.Map<GetClaimDto>(claim);
+                    return claimDto;
+                }
+                catch (ClaimNotFoundException ex)
+                {
+                     throw;
+                }
+                catch (Exception ex)
+                {
+                     throw;
+                }
+
+
             }
         }
-    }
+    
 
 }

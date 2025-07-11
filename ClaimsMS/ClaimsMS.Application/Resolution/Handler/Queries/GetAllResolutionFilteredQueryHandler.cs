@@ -35,7 +35,6 @@ namespace ClaimsMS.Application.Resolution.Handler.Queries
 
             var resolution = await _resolutionRepository.GetAllByFiltredResolutionAsync(
                 request.ClaimId,
-                request.AuctionId,
                 request.ResolutionId
 
             );

@@ -2,11 +2,13 @@
 using ClaimsMS.Common.Dtos.Claim.Response;
 using ClaimsMS.Core.Repositories.Claims;
 using ClaimsMS.Domain.Entities.Claims;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ClaimsMS.Infrastructure.Repositories.Claims
@@ -59,19 +61,20 @@ namespace ClaimsMS.Infrastructure.Repositories.Claims
             if (userId.HasValue && userId != Guid.Empty)
             {
                 Console.WriteLine($"Filtrando por usuario: {userId}");
-                filters.Add(Builders<ClaimEntity>.Filter.Eq("UserId", userId));
+                filters.Add(Builders<ClaimEntity>.Filter.Eq("ClaimUserId", userId));
             }
 
             if (auctionId.HasValue && auctionId != Guid.Empty)
             {
                 Console.WriteLine($"Filtrando por subasta: {auctionId}");
-                filters.Add(Builders<ClaimEntity>.Filter.Eq("AuctionId", auctionId));
+                filters.Add(Builders<ClaimEntity>.Filter.Eq("ClaimAuctionId", auctionId));
             }
 
             if (!string.IsNullOrWhiteSpace(status))
             {
-                Console.WriteLine($"Filtrando por estado: {status}");
-                filters.Add(Builders<ClaimEntity>.Filter.Eq("Status", status));
+                var regex = new BsonRegularExpression($"^{Regex.Escape(status.Trim())}$", "i"); // 'i' => case-insensitive
+               // filters.Add(Builders<Bid>.Filter.Regex("Status", regex));
+                filters.Add(Builders<ClaimEntity>.Filter.Eq("StatusClaim", regex));
             }
 
             var filter = filters.Count > 0
@@ -94,6 +97,18 @@ namespace ClaimsMS.Infrastructure.Repositories.Claims
 
             var claimEntities = _mapper.Map<List<ClaimEntity>>(claimDtos);
             return claimEntities;
+        }
+
+        public async Task<List<ClaimEntity>> GetAllClaim()
+        {
+            var projection = Builders<ClaimEntity>.Projection.Exclude("_id");
+            var bidsDto = await _collection.Find(Builders<ClaimEntity>.Filter.Empty)
+                .Project<GetClaimDto>(projection)
+                .ToListAsync();
+
+            return _mapper.Map<List<ClaimEntity>>(bidsDto);
+
+
         }
     }
 }

@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_11",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_14",
     "RelativePath": "",
     "HttpMethod": "GET",
     "IsController": false,
@@ -19,7 +19,7 @@
   },
   {
     "ContainingType": "ClaimsMS.Controller.ClaimController",
-    "Method": "CreatedProduct",
+    "Method": "CreatedClaim",
     "RelativePath": "claim/Add-Claim/{auctionId}/{userId}",
     "HttpMethod": "POST",
     "IsController": true,
@@ -44,9 +44,139 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "CreatedClaimDelivery",
+    "RelativePath": "claim/Add-ClaimDelivery/{deliveryId}/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createClaimDto",
+        "Type": "ClaimsMS.Common.Dtos.Claim.Request.CreateClaimDeliveryDto",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "deliveryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "GetClaimById",
+    "RelativePath": "claim/Get-Claim-ById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "GetFilteredClaim",
+    "RelativePath": "claim/Get-Claim-Filtered",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "auction",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "GetClaimByIdDelivery",
+    "RelativePath": "claim/Get-ClaimDelivery-ById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "GetFilteredClaimDelivery",
+    "RelativePath": "claim/Get-ClaimDelivery-Filtered",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "deliveryId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "GetAllClaim",
+    "RelativePath": "claim/GetAll-Claim",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "GetAllClaimDelivery",
+    "RelativePath": "claim/GetAll-ClaimDelivery",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ClaimsMS.Controller.ResolutionController",
-    "Method": "CreatedProduct",
-    "RelativePath": "claim/resolution/Add-Resolution/{claimId}",
+    "Method": "CreatedResolution",
+    "RelativePath": "claim/resolution/Add-Resolution/{typeClaim}/{claimId}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -60,6 +190,32 @@
         "Name": "claimId",
         "Type": "System.Guid",
         "IsRequired": true
+      },
+      {
+        "Name": "typeClaim",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ResolutionController",
+    "Method": "GetResolution",
+    "RelativePath": "claim/resolution/GetFiltered-Resolution",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "resoluctionId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "claimId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -68,6 +224,22 @@
     "ContainingType": "ClaimsMS.Controller.ClaimController",
     "Method": "UpdateStatusClaim",
     "RelativePath": "claim/Update-Status/{claimId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "claimId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClaimsMS.Controller.ClaimController",
+    "Method": "UpdateStatusClaimDelivery",
+    "RelativePath": "claim/Update-StatusClaimDelivery/{claimId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,

@@ -18,7 +18,7 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Connection
             Console.WriteLine(" Esperando la inicialización de RabbitMQ...");
 
             await Task.Delay(3000); // Pequeño retraso para asegurar la inicialización
-            var queues = new List<string> { "resolutionQueue", "claimQueue" };
+            var queues = new List<string> { "resolutionQueue", "claimQueue", "claimDeliveryQueue" };
 
 
             foreach (var queue in queues)

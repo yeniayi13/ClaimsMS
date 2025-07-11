@@ -19,7 +19,7 @@ namespace ClaimsMS.Domain.Entities.Claims
         public ClaimReason ClaimReason { get; private set; }
         public StatusClaim StatusClaim { get;  set; }
         public ClaimEvidence ClaimEvidence { get; private set; }
-        public ResolutionEntity Resolution { get; private set; }
+        public ResolutionEntity? Resolution { get; private set; }
         public ClaimUserId ClaimUserId { get; private set; }
         public ClaimEntity (ClaimId claimId,
             ClaimAuctionId claimAuctionId,

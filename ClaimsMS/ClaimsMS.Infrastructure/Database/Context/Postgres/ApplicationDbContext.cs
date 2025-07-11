@@ -32,6 +32,8 @@ namespace ClaimsMS.Infrastructure.Database.Context.Postgres
        public virtual DbSet<ClaimEntity> Claims { get; set; } = null!;
        public virtual DbSet<ResolutionEntity> Resolutions { get; set; } = null!;
 
+        public virtual DbSet<ClaimDelivery> ClaimDeliveries { get; set; } = null!;
+
 
 
         public IDbContextTransactionProxy BeginTransaction()

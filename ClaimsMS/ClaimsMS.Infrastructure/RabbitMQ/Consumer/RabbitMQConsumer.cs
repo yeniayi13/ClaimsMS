@@ -20,7 +20,8 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
         private readonly IMongoDatabase _database;
         private readonly IMongoCollection<GetResolutionDto> _collection;
         private readonly IMongoCollection<GetClaimDto> _collectionC;
-        public RabbitMQConsumer(IConnectionRabbbitMQ rabbitMQConnection, IMongoCollection<GetResolutionDto> collection, IMongoCollection<GetClaimDto> collectionC)
+        private readonly IMongoCollection<GetClaimDeliveryDto> _collectionD;
+        public RabbitMQConsumer(IConnectionRabbbitMQ rabbitMQConnection, IMongoCollection<GetResolutionDto> collection, IMongoCollection<GetClaimDto> collectionC, IMongoCollection<GetClaimDeliveryDto> collectionD)
         {
             _rabbitMQConnection = rabbitMQConnection;
 
@@ -29,6 +30,7 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
             _database = _mongoClient.GetDatabase("ClaimMs");
             _collection = collection;
             _collectionC = collectionC;
+            _collectionD = collectionD;
 
         }
         public RabbitMQConsumer() { }
@@ -50,6 +52,7 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
                 {
                     var eventMessageD = JsonConvert.DeserializeObject<EventMessage<GetResolutionDto>>(message);
                     var eventMessageC = JsonConvert.DeserializeObject<EventMessage<GetClaimDto>>(message);
+                    var eventMessageCD = JsonConvert.DeserializeObject<EventMessage<GetClaimDeliveryDto>>(message);
                     if (eventMessageD?.EventType == "RESOLUTION_CREATED")
                     {
                         await _collection.InsertOneAsync(eventMessageD.Data);
@@ -62,7 +65,8 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
                             .Set(p => p.ClaimDescription, eventMessageC.Data.ClaimDescription)
                             .Set(p => p.StatusClaim, eventMessageC.Data.StatusClaim)
                             .Set(p => p.ClaimEvidence, eventMessageC.Data.ClaimEvidence)
-                            .Set(p => p.ClaimAuctionId, eventMessageC.Data.ClaimAuctionId);
+                            .Set(p => p.ClaimAuctionId, eventMessageC.Data.ClaimAuctionId)
+                            .Set(p => p.ClaimReason, eventMessageC.Data.ClaimReason);
 
 
 
@@ -75,6 +79,28 @@ namespace ClaimsMS.Infrastructure.RabbitMQ.Consumer
                         Console.WriteLine($"Reclamo insertado en MongoDB: {JsonConvert.SerializeObject(eventMessageC.Data)}");
 
                        
+                    }
+                    else if (eventMessageCD?.EventType == "CLAIMDELIVERY_UPDATED")
+                    {
+                        var filter = Builders<GetClaimDeliveryDto>.Filter.Eq(p => p.ClaimId, eventMessageCD.Data.ClaimId);
+                        var update = Builders<GetClaimDeliveryDto>.Update
+                            .Set(p => p.ClaimDescription, eventMessageCD.Data.ClaimDescription)
+                            .Set(p => p.StatusClaim, eventMessageCD.Data.StatusClaim)
+                            .Set(p => p.ClaimEvidence, eventMessageCD.Data.ClaimEvidence)
+                            .Set(p => p.ClaimDeliveryId, eventMessageCD.Data.ClaimDeliveryId)
+                            .Set(p => p.ClaimReason, eventMessageCD.Data.ClaimReason);
+
+
+
+                        await _collectionD.UpdateOneAsync(filter, update);
+                        Console.WriteLine($"Reclamo actualizado en MongoDB: {JsonConvert.SerializeObject(eventMessageCD.Data)}");
+                    }
+                    else if (eventMessageCD?.EventType == "CLAIMDELIVERY_CREATED")
+                    {
+                        await _collectionD.InsertOneAsync(eventMessageCD.Data);
+                        Console.WriteLine($"Reclamo insertado en MongoDB: {JsonConvert.SerializeObject(eventMessageCD.Data)}");
+
+
                     }
                     await Task.Run(() => channel.BasicAckAsync(ea.DeliveryTag, false));
                 }

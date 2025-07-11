@@ -65,5 +65,39 @@ namespace ClaimsMS.Infrastructure.Services.Auction
                 throw; // 🔹 Lanza la excepción en lugar de retornar `false`
             }
         }
+
+
+        public async Task<bool> DeliveryById(Guid auctionId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"auction/deliverId/{auctionId}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException(
+                        $"Error obteniendo la información de la subasta: {response.StatusCode}");
+                }
+
+                // Leer el contenido y validar si es vacío o nulo
+                var responseContent = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(responseContent))
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.Error.WriteLine($"Error de solicitud HTTP: {ex.Message}");
+                throw; // 🔹 Lanza la excepción en lugar de retornar `false`
+            }
+            catch (System.Exception ex)
+            {
+                Console.Error.WriteLine($"Error inesperado: {ex.Message}");
+                throw; // 🔹 Lanza la excepción en lugar de retornar `false`
+            }
+        }
     }
 }

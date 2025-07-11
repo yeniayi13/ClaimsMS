@@ -30,7 +30,7 @@ public class RabbitMQConnection : IConnectionRabbbitMQ
         {
             throw new InvalidOperationException("No se pudo crear el canal de comunicación con RabbitMQ.");
         }
-        var queues = new List<string> { "resolutionQueue", "claimQueue" };
+        var queues = new List<string> { "resolutionQueue", "claimQueue", "claimDeliveryQueue" };
 
 
         foreach (var queue in queues)

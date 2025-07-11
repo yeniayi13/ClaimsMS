@@ -22,6 +22,52 @@ namespace ClaimsMS.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ClaimsMS.Domain.Entities.Claims.ClaimDelivery", b =>
+                {
+                    b.Property<Guid>("ClaimId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ClaimDeliveryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ClaimDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimEvidence")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimReason")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ClaimUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("StatusClaim")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("ClaimId");
+
+                    b.ToTable("ClaimDeliveries", (string)null);
+                });
+
             modelBuilder.Entity("ClaimsMS.Domain.Entities.Claims.ClaimEntity", b =>
                 {
                     b.Property<Guid>("ClaimId")
@@ -73,7 +119,10 @@ namespace ClaimsMS.Infrastructure.Migrations
                     b.Property<Guid>("ResolutionId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ClaimId")
+                    b.Property<Guid?>("ClaimDeliveryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ClaimId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
@@ -97,6 +146,9 @@ namespace ClaimsMS.Infrastructure.Migrations
 
                     b.HasKey("ResolutionId");
 
+                    b.HasIndex("ClaimDeliveryId")
+                        .IsUnique();
+
                     b.HasIndex("ClaimId")
                         .IsUnique();
 
@@ -105,19 +157,29 @@ namespace ClaimsMS.Infrastructure.Migrations
 
             modelBuilder.Entity("ClaimsMS.Domain.Entities.Resolutions.ResolutionEntity", b =>
                 {
+                    b.HasOne("ClaimsMS.Domain.Entities.Claims.ClaimDelivery", "ClaimDelivery")
+                        .WithOne("Resolution")
+                        .HasForeignKey("ClaimsMS.Domain.Entities.Resolutions.ResolutionEntity", "ClaimDeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("ClaimsMS.Domain.Entities.Claims.ClaimEntity", "Claim")
                         .WithOne("Resolution")
                         .HasForeignKey("ClaimsMS.Domain.Entities.Resolutions.ResolutionEntity", "ClaimId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Claim");
+
+                    b.Navigation("ClaimDelivery");
+                });
+
+            modelBuilder.Entity("ClaimsMS.Domain.Entities.Claims.ClaimDelivery", b =>
+                {
+                    b.Navigation("Resolution");
                 });
 
             modelBuilder.Entity("ClaimsMS.Domain.Entities.Claims.ClaimEntity", b =>
                 {
-                    b.Navigation("Resolution")
-                        .IsRequired();
+                    b.Navigation("Resolution");
                 });
 #pragma warning restore 612, 618
         }

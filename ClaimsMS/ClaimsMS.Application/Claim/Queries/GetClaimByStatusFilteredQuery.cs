@@ -13,6 +13,15 @@ namespace ClaimsMS.Application.Claim.Queries
         public Guid? UserId { get; set; }
         public string? status { get; set; }
         public Guid? auctionId { get; set; }
-        
+
+
+
+        public GetClaimByStatusFilteredQuery(Guid? userId, string? status, Guid? auctionId)
+        {
+            UserId = userId;
+            this.status = status;
+            this.auctionId = auctionId;
+        }
+
     }
 }

@@ -10,20 +10,22 @@ using ClaimsMS.Core.Repositories.Claims;
 namespace ClaimsMS.Application.Claim.Handler.Queries
 {
 
-        public class GetClaimByStatusFilteredQueryHandler : IRequestHandler<GetClaimByStatusFilteredQuery, List<GetClaimDto>>
+    public class GetClaimByStatusFilteredQueryHandler : IRequestHandler<GetClaimByStatusFilteredQuery, List<GetClaimDto>>
+    {
+        private readonly IClaimRepositoryMongo _claimRepository;
+        private readonly IMapper _mapper;
+
+        public GetClaimByStatusFilteredQueryHandler(IClaimRepositoryMongo claimRepository, IMapper mapper)
         {
-            private readonly IClaimRepositoryMongo _claimRepository;
-            private readonly IMapper _mapper;
-
-            public GetClaimByStatusFilteredQueryHandler(IClaimRepositoryMongo claimRepository, IMapper mapper)
-            {
             _claimRepository = claimRepository;
-                _mapper = mapper;
-            }
+            _mapper = mapper;
+        }
 
-            public async Task<List<GetClaimDto>> Handle(GetClaimByStatusFilteredQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetClaimDto>> Handle(GetClaimByStatusFilteredQuery request, CancellationToken cancellationToken)
+        {
+
+            try
             {
-
                 if (request.UserId == Guid.Empty)
                 {
                     throw new ArgumentException("El ID de usuario es requerido para filtrar reclamos.");
@@ -34,7 +36,7 @@ namespace ClaimsMS.Application.Claim.Handler.Queries
                     request.UserId,
                     request.auctionId,
                     request.status
-                   
+
                 );
 
 
@@ -47,5 +49,12 @@ namespace ClaimsMS.Application.Claim.Handler.Queries
 
                 return claimsDtoList;
             }
+
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
+
     }
+}

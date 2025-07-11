@@ -40,7 +40,8 @@ BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer(GuidRepresent
 var profileTypes = new[]
 {
     typeof(ResolutionProfile),
-     typeof(ClaimProfile)
+     typeof(ClaimProfile),
+     typeof(ClaimDeliveryProfile),
 };
 
 foreach (var profileType in profileTypes)
@@ -71,6 +72,12 @@ builder.Services.AddScoped(sp =>
     return dbContext.Database.GetCollection<ClaimEntity>("Claims"); // Nombre de la colección en MongoDB
 });
 
+builder.Services.AddScoped(sp =>
+{
+    var dbContext = sp.GetRequiredService<IApplicationDbContextMongo>();
+    return dbContext.Database.GetCollection<ClaimDelivery>("ClaimDeliveries"); // Nombre de la colección en MongoDB
+});
+
 builder.Services.AddSingleton<IMongoCollection<GetResolutionDto>>(provider =>
 {
     var mongoClient = new MongoClient("mongodb+srv://yadefreitas19:08092001@cluster0.owy2d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
@@ -83,6 +90,13 @@ builder.Services.AddSingleton<IMongoCollection<GetClaimDto>>(provider =>
     var mongoClient = new MongoClient("mongodb+srv://yadefreitas19:08092001@cluster0.owy2d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
     var database = mongoClient.GetDatabase("ClaimMs");
     return database.GetCollection<GetClaimDto>("Claims");
+});
+
+builder.Services.AddSingleton<IMongoCollection<GetClaimDeliveryDto>>(provider =>
+{
+    var mongoClient = new MongoClient("mongodb+srv://yadefreitas19:08092001@cluster0.owy2d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    var database = mongoClient.GetDatabase("ClaimMs");
+    return database.GetCollection<GetClaimDeliveryDto>("ClaimDeliveries");
 });
 
 
@@ -118,13 +132,20 @@ builder.Services.AddSingleton<IEventBus<GetClaimDto>>(provider =>
     return new RabbitMQProducer<GetClaimDto>(rabbitMQConnection);
 });
 
+builder.Services.AddSingleton<IEventBus<GetClaimDeliveryDto>>(provider =>
+{
+    var rabbitMQConnection = provider.GetRequiredService<IConnectionRabbbitMQ>();
+    return new RabbitMQProducer<GetClaimDeliveryDto>(rabbitMQConnection);
+});
+
 builder.Services.AddSingleton<RabbitMQConsumer>(provider =>
 {
 
     var rabbitMQConnection = provider.GetRequiredService<IConnectionRabbbitMQ>();
     var resoCollection = provider.GetRequiredService<IMongoCollection<GetResolutionDto>>();
     var claimCollection = provider.GetRequiredService<IMongoCollection<GetClaimDto>>();
-    return new RabbitMQConsumer(rabbitMQConnection, resoCollection, claimCollection);
+    var claimDeliveryCollection = provider.GetRequiredService<IMongoCollection<GetClaimDeliveryDto>>();
+    return new RabbitMQConsumer(rabbitMQConnection, resoCollection, claimCollection, claimDeliveryCollection);
 });
 
 

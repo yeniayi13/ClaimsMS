@@ -1,7 +1,9 @@
 ﻿using ClaimsMS.Application.Claim.Command;
 using ClaimsMS.Application.Resolution.Command;
+using ClaimsMS.Application.Resolution.Queries;
 using ClaimsMS.Common.Dtos.Claim.Request;
 using ClaimsMS.Common.Dtos.Resolution.Request;
+using ClaimsMS.Domain.Entities.Claims.ValueObject;
 using ClaimsMS.Infrastructure.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,8 +26,8 @@ namespace ClaimsMS.Controller
 
         // Crea una resolución para un reclamo
         [Authorize(Policy = "AdministradorOSoportePolicy")]
-        [HttpPost("Add-Resolution/{claimId}")]
-        public async Task<IActionResult> CreatedProduct([FromBody] CreateResolutionDto createResolutionDto, [FromRoute] Guid claimId)
+        [HttpPost("Add-Resolution/{typeClaim}/{claimId}")]
+        public async Task<IActionResult> CreatedResolution([FromBody] CreateResolutionDto createResolutionDto, [FromRoute] Guid claimId, [FromRoute] string typeClaim)
         {
             try
             {
@@ -34,7 +36,7 @@ namespace ClaimsMS.Controller
                     throw new ArgumentNullException(nameof(createResolutionDto), "El objeto de creación de resolucion no puede ser nulo.");
                 }
 
-                var command = new CreateResolutionCommand(createResolutionDto, claimId);
+                var command = new CreateResolutionCommand(createResolutionDto, claimId, typeClaim);
                 var resolutionId = await _mediator.Send(command);
 
                 if (resolutionId == Guid.Empty)
@@ -81,5 +83,62 @@ namespace ClaimsMS.Controller
                 return StatusCode(500, "Ocurrió un error inesperado al intentar crear el producto.");
             }
         }
+
+        [HttpGet("GetFiltered-Resolution")]
+        public async Task<IActionResult> GetResolution([FromQuery] Guid? resoluctionId = null,
+           [FromQuery] Guid? claimId = null)
+        {
+            try
+            {
+
+                var query = new GetAllResolutionFilteredQuery(claimId, resoluctionId);
+                var resolution = await _mediator.Send(query);
+
+                if (resolution.Count()== 0)
+                {
+                    return Ok(null);
+                }
+
+                return Ok(resolution);
+            }
+            catch (ArgumentNullException e)
+            {
+                _logger.LogError("Error: {Message}", e.Message);
+                return StatusCode(400, $"Error de argumento nulo: {e.Message}");
+            }
+            catch (ClaimNotFoundException e)
+            {
+                _logger.LogError("Error: {Message}", e.Message);
+                return StatusCode(404, $"Claim no encontrado: {e.Message}");
+            }
+
+            catch (ValidatorException e)
+            {
+                _logger.LogError("Error: {Message}", e.Message);
+                return StatusCode(400, $"Error de validación: {e.Message}");
+            }
+            catch (InvalidOperationException e)
+            {
+                _logger.LogError("Error: {Message}", e.Message);
+                return StatusCode(500, $"Operación inválida: {e.Message}");
+            }
+            catch (HttpRequestException e) when (e.Message.Contains("401"))
+            {
+                _logger.LogError("Error de autenticación: {Message}", e.Message);
+                return StatusCode(401, "Acceso denegado. Verifica tus credenciales.");
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                _logger.LogError("Acceso no autorizado: {Message}", e.Message);
+                return StatusCode(401, "No tienes permisos para acceder a este recurso.");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Error inesperado: {Message}", e.Message);
+                return StatusCode(500, "Ocurrió un error inesperado al intentar crear el producto.");
+            }
+        }
+
+
     }
 }

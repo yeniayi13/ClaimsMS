@@ -10,8 +10,11 @@ namespace ClaimsMS.Application.Claim.Queries
 {
     public class GetClaimByIdQuery : IRequest<GetClaimDto>
     {
-        public Guid? ClaimId { get; set; }
-      
+        public Guid ClaimId { get; set; }
 
+        public GetClaimByIdQuery(Guid claimId)
+        {
+            ClaimId = claimId;
+        }
     }
 }

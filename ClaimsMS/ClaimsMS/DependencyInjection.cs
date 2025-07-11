@@ -31,19 +31,24 @@ namespace ClaimsMS
             services.AddScoped<IResolutionRepository, ResolutionRepository>();
             services.AddScoped<IResolutionRepositoryMongo, ResolutionRepositoryMongo>();
             services.AddScoped<IClaimRepository, ClaimRepository>();
+            services.AddScoped<IClaimDeliveryRepository, ClaimDeliveryRepository>();
             services.AddScoped<IClaimRepositoryMongo, ClaimRepositoryMongo>();
+            services.AddScoped<IClaimDeliveryRepositoryMongo, ClaimDeliveryRepositoryMongo>();
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
             //Registro de handlers 
             services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateResolutionCommandHandler).Assembly));
             services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateClaimCommandHandler).Assembly));
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(CreateClaimDeliveryCommandHandler).Assembly));
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(UpdateStatusClaimDeliveryCommandHandler).Assembly));
+            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(UpdateStatusCommadnHandler).Assembly));
             //services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(UpdateProductCommandHandler).Assembly));
-            
-            /*services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetNameProductQueryHandler).Assembly));
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetAvailableProductsQueryHandler).Assembly));
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetProductQueryHandler).Assembly));
-            services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetAllProductQueryHandler).Assembly));
-            //services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetFilteredProductsQueryHandler).Assembly));*/
+
+          //  services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetNameProductQueryHandler).Assembly));
+         //   services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetAvailableProductsQueryHandler).Assembly));
+           // services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetProductQueryHandler).Assembly));
+          //  services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetAllProductQueryHandler).Assembly));
+            //services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(GetFilteredProductsQueryHandler).Assembly));
             services.AddHttpClient<UserService>(
                 client =>
                 {

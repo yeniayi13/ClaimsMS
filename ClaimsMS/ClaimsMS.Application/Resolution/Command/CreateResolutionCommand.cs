@@ -14,10 +14,13 @@ namespace ClaimsMS.Application.Resolution.Command
         public CreateResolutionDto Resolution { get; set; }
         public Guid ClaimId { get; set; }
 
-        public CreateResolutionCommand(CreateResolutionDto resolution, Guid claimgId)
+        public string TypeClaim { get; set; }
+
+        public CreateResolutionCommand(CreateResolutionDto resolution, Guid claimgId, string typeClaim)
         {
             Resolution = resolution;
             ClaimId = claimgId;
+            TypeClaim = typeClaim;
         }
     }
 }

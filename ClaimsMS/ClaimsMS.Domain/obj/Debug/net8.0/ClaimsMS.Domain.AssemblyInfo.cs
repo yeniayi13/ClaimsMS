@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClaimsMS.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b499db178cf1f2dc56b542c7fa6ac00e73215e5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56b2151dceea973686f6bed0c9c477deb03722bb")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClaimsMS.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClaimsMS.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -30,12 +30,23 @@ namespace ProductsMS.Infrastructure.Database.Configuration.Postgres
                                 .IsRequired();
                         builder.Property(s => s.ClaimId)
                                             .HasConversion(claimId => claimId.Value, value => ClaimId.Create(value)!)
-                                            .IsRequired();
-                        builder
+                                            .IsRequired(false);
+                             builder.Property(s => s.ClaimDeliveryId)
+                                           .HasConversion(claimId => claimId.Value, value => ClaimId.Create(value)!)
+                                           .IsRequired(false);
+                             builder
                           .HasOne(r => r.Claim)
                           .WithOne(c => c.Resolution)
                           .HasForeignKey<ResolutionEntity>(r => r.ClaimId)
+                          .IsRequired(false)
                           .OnDelete(DeleteBehavior.Cascade);
+
+                        builder
+                            .HasOne(r => r.ClaimDelivery)
+                            .WithOne(c => c.Resolution)
+                            .HasForeignKey<ResolutionEntity>(r => r.ClaimDeliveryId)
+                            .IsRequired(false)
+                            .OnDelete(DeleteBehavior.Cascade);
 
         }
     }
