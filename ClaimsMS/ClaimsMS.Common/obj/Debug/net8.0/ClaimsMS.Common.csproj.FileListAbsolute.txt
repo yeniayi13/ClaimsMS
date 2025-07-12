@@ -1,0 +1,16 @@
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.csproj.AssemblyReference.cache
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.AssemblyInfoInputs.cache
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.AssemblyInfo.cs
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.sourcelink.json
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\bin\Debug\net8.0\ClaimsMS.Common.deps.json
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\bin\Debug\net8.0\ClaimsMS.Common.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\bin\Debug\net8.0\ClaimsMS.Common.pdb
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\bin\Debug\net8.0\ClaimsMS.Domain.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\bin\Debug\net8.0\ClaimsMS.Domain.pdb
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.D9237D5A.Up2Date
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\refint\ClaimsMS.Common.dll
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ClaimsMS.Common.pdb
+C:\Users\LENOVO\ClaimsMS\ClaimsMS\ClaimsMS.Common\obj\Debug\net8.0\ref\ClaimsMS.Common.dll

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Claims\**" />
+    <Compile Remove="Resolutions\**" />
+    <EmbeddedResource Remove="Claims\**" />
+    <EmbeddedResource Remove="Resolutions\**" />
+    <None Remove="Claims\**" />
+    <None Remove="Resolutions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClaimsMS.Common\ClaimsMS.Common.csproj" />
+    <ProjectReference Include="..\ClaimsMS.Core\ClaimsMS.Core.csproj" />
+    <ProjectReference Include="..\ClaimsMS.Infrastructure\ClaimsMS.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
